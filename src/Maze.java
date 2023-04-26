@@ -99,7 +99,7 @@ public class Maze {
                     System.out.print("A");
                 } else if (this.endCell == this.mazeGrid[row][col]) {
                     System.out.print("B");
-                } else if(sol.contains(this.mazeGrid[row][col])) {
+                } else if (sol.contains(this.mazeGrid[row][col])) {
                     System.out.print("*");
                 } else {
                     System.out.print(" ");
@@ -138,7 +138,9 @@ public class Maze {
     public MazeCell getCell(int row, int col) {
         return this.mazeGrid[row][col];
     }
-
+    public MazeCell[][] getMazeGrid() {
+        return this.mazeGrid;
+    }
     /**
      * Determines if the cell is valid to visit.
      * @param row the int row val
@@ -146,7 +148,19 @@ public class Maze {
      * @return boolean true/false
      */
     public boolean isValidCell(int row, int col) {
-        // TODO: Complete this function
-        return true;
+        // If the row index inputted is out of bounds, returns false
+        if (row > mazeGrid.length - 1 || row < 0) {
+            return false;
+        }
+        // If the column index inputted is out of bounds, returns false
+        if (col > mazeGrid[0].length - 1 || col < 0) {
+            return false;
+        }
+        // If the MazeCell at row, col is a wall, returns false
+        if (mazeGrid[row][col].isWall()) {
+            return false;
+        }
+        // If the MazeCell at row, col has not yet been explored, returns true. If it has been explored, returns false.
+        return (!getCell(row, col).isExplored());
     }
 }
